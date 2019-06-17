@@ -11,12 +11,19 @@ Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 
-let app = Vue.extend(App);
-
-let router = new VueRouter();
+const router = new VueRouter();
 
 const routes = [
 	{path: '/goods', component: goods},
 	{path: '/ratings', component: ratings},
 	{path: '/seller', component: seller}
 ];
+
+/* eslint-disable no-new */
+
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+});
