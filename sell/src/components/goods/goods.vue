@@ -2,7 +2,7 @@
 	<div class="goods">
 		<div class="menu-wrapper" ref="menuWrapper">
 			<ul>
-				<li v-for="(item,index) in goods" :key="index" class="menu-item">
+				<li v-for="(item,index) in goods" :key="index" class="menu-item" :class="{'current':currentIndex===index}">
 					<span class="text border-1px">
 						<span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
 					</span>
@@ -11,7 +11,7 @@
 		</div>
 		<div class="foods-wrapper" ref="foodsWrapper">
 			<ul>
-				<li v-for="(item,index) in goods" :key="index" class="food-list">
+				<li v-for="(item,index) in goods" :key="index" class="food-list food-list-hook">
 					<h1 class="title">{{item.name}}</h1>
 					<ul>
 						<li v-for="(food,index) in item.foods" :key="index" class="food-item border-1px">
@@ -26,8 +26,7 @@
 									<span>好评率{{food.rating}}</span>
 								</div>
 								<div class="price">
-									<span class="now">￥{{food.price}}</span>
-									<span v-show="food.oldPrice" class="old">￥{{food.oldPrice}}</span>
+									<span class="now">￥{{food.price}}</span><span v-show="food.oldPrice" class="old">￥{{food.oldPrice}}</span>
 								</div>
 							</div>
 						</li>
@@ -39,7 +38,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import BScorll from 'better-scroll';
+	import BScroll from 'better-scroll';
 
 	const ERROR_OK = 0;
 
@@ -51,8 +50,22 @@
 		},
 		data() {
 			return {
-				goods: []
+				goods: [],
+				listHeight: [],
+				scrollY: 0
 			};
+		},
+		computed: {
+			currentIndex() {
+				for (let i = 0; i < this.listHeight.length; i++) {
+					let height1 = this.listHeight[i];
+					let height2 = this.listHeight[i + 1];
+					if (!height2 || (this.scrollY > height1 && this.scrollY < height2)) {
+						return i;
+					}
+				}
+				return 0;
+			}
 		},
 		created() {
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
@@ -63,6 +76,7 @@
 					this.goods = response.data;
 					this.$nextTick(() => {
 						this._initScroll();
+						this._calculateHeight();
 					});
 				}
 			});
@@ -70,7 +84,26 @@
 		methods: {
 			_initScroll() {
 				this.menuScroll = new BScroll(this.$refs.menuWrapper, {});
-				this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {});
+
+				this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+					probeType: 3
+				});
+
+				this.foodScroll.on('scroll', (pos) => {
+					if (pos.y <= 0) {
+						this.scrollY = Math.abs(Math.round(pos.y));
+					}
+				});
+			},
+			_calculateHeight() {
+				let foodList = this.$refs.foodList;
+				let height = 0;
+				this.listHeight.push(height);
+				for (let i = 0; i < foodList.length; i++) {
+					let item = foodList[i];
+					height += item.clientHeight;
+					this.listHeight.push(height);
+				}
 			}
 		}
 	};
@@ -96,6 +129,14 @@
 				height: 54px
 				padding: 0 12px
 				line-height: 14px
+				&.current
+					position: relative
+					z-index: 10
+					margin-top: -1px
+					background: #fff
+					font-weight: 700
+					.text
+						border-none()
 				.icon
 					display: inline-block
 					vertical-align: top
@@ -154,9 +195,10 @@
 						font-size: 10px
 						color: rgb(147, 153, 159)
 					.desc
+						line-height: 12px
 						margin-bottom: 8px
 					.extra
-						&.count
+						.count
 							margin-right: 12px
 					.price
 						font-weight: 700px
