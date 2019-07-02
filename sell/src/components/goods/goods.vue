@@ -108,6 +108,8 @@
 				this.foodsScroll.scrollToElement(el, 300);
 				console.log(index);
 			},
+			_drop(target) {
+			},
 			_initScroll() {
 				this.menuScroll = new BScroll(this.$refs.menuWrapper, {
 					click: true
@@ -138,6 +140,11 @@
 		components: {
 			shopcart,
 			cartcontrol
+		},
+		events: {
+			'cart.add'(target) {
+				this._drop(target);
+			}
 		}
 	};
 </script>
