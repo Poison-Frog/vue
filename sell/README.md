@@ -1,6 +1,5 @@
 # Vue高仿饿了么APP
 > 使用vue@2.0开发的高仿饿了么APP（用户端）
-> [Vue.js高仿饿了么外卖App 2016最火前端框架](http://coding.imooc.com/class/74.html)
 
 ## 主要依赖
 - 基于vue@2.0
@@ -12,8 +11,6 @@
 - 使用eslint进行js代码的规范、
 - 使用[better-scroll](https://github.com/ustbhuangyi/better-scroll)进行联动滑动
 
-## 在线预览
-[点我在线预览](http://chenyubo.me/vue-eleme-app/dist/index.html)
 
 **（PC端建议开启chrome调试模式食用更佳，移动端直接在浏览器开启即可）**
 
@@ -35,7 +32,7 @@ $ npm run build
 ```
 
 ## 说明
-~~暂时使用vue@1.0实现，后续会将vue@1.0迁移至vue@2.0，敬请期待！~~，已升级至2.0
+使用vue@2.0实现
 
 - Mac下安装基于vue@1.x的vue-cli脚手架时报错`not matches webpack#1.0`
 
