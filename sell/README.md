@@ -13,13 +13,13 @@
 - 使用[better-scroll](https://github.com/ustbhuangyi/better-scroll)进行联动滑动
 
 ## 在线预览
-[点我在线预览](http://chenyubo.me/vue-eleme-app/dist/index.html)
+[点我在线预览](https://poison-frog.github.io/vue/sell/dist/index.html)
 
 **（PC端建议开启chrome调试模式食用更佳，移动端直接在浏览器开启即可）**
 
 ## Build Setup
 
-``` bash                                                 
+``` bash
 # clone the repo into your disk.
 $ git clone https://github.com/cccyb/vue-eleme-app.git
 
@@ -35,7 +35,7 @@ $ npm run build
 ```
 
 ## 说明
-~~暂时使用vue@1.0实现，后续会将vue@1.0迁移至vue@2.0，敬请期待！~~，已升级至2.0
+使用vue@1.0实现
 
 - Mac下安装基于vue@1.x的vue-cli脚手架时报错`not matches webpack#1.0`
 
@@ -53,7 +53,7 @@ $ npm run build
 - 设备像素比
 
 	答：http://www.zhangxinxu.com/wordpress/2012/08/window-devicepixelratio/
-	
+
 - Flex弹性布局
 
 	答：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool
